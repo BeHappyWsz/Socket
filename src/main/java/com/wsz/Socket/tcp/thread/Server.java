@@ -24,7 +24,7 @@ public class Server {
 			//记录客户端的数量
 			int count = 0;
 			//2.调用accept()开始监听,等待客户端的连接
-			System.out.println("服务器即将启动...,等待客户端的连接");
+			System.out.println("服务器即将启动...等待客户端的连接");
 			//3.循环监听等待客户端的连接
 			while(true) {
 				//开始监听
@@ -34,9 +34,9 @@ public class Server {
 				//启动线程
 				serverThread.start();
 				count++;
-				System.out.println("已连接的客户端数量为:"+count);
 				
-				printMsg(socket);
+				System.out.println("已连接的客户端数量为:"+count);
+//				printMsg(socket);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

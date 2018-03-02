@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * 服务器线程处理类
@@ -47,8 +48,14 @@ public class ServerThread extends Thread{
 			//2.获取输出流,响应客户端的请求
 			os = socket.getOutputStream();
 			pw = new PrintWriter(os);
-			pw.write("欢迎");
-			pw.flush();//将缓冲输出
+			//获取输入的信息
+			String content = getContent();
+			if("quit".equals(content)) {
+				System.out.println("链接已关闭");
+			}else {
+				pw.write(content);
+				pw.flush();//将缓冲输出
+			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -71,5 +78,17 @@ public class ServerThread extends Thread{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@SuppressWarnings("resource")
+	public static String getContent() {
+		Scanner input = new Scanner(System.in);
+		String content;
+		
+		System.out.println("输入回复:");
+		while(!(content = input.nextLine()).equals("quit")) {
+			return content;
+		}
+		return "quit";
 	}
 }

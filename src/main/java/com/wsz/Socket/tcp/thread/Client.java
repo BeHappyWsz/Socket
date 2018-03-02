@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 /**
  * 基于TCP协议的Socket通信，实现用户登录
@@ -18,10 +19,19 @@ import java.net.UnknownHostException;
 public class Client {
 
 	public static void main(String[] args) {
-		client();
+		String content = null;
+		Scanner input = new Scanner(System.in);
+		System.out.println("与服务器建立链接:");
+		System.out.println("输入对话(quit结束):");
+		while(!(content = input.nextLine()).equals("quit")) {
+			client(content);
+			System.out.println("输入对话(quit结束):");
+		}
+		System.out.println("链接已关闭");
+		input.close();
 	}
 	
-	public static void client() {
+	public static void client(String content) {
 		Socket socket = null;
 		OutputStream os = null;
 		PrintWriter pw = null;
@@ -33,7 +43,7 @@ public class Client {
 			//2.获取输出流,向服务器端发送消息
 			os = socket.getOutputStream();//字节输出流
 			pw = new PrintWriter(os);//包装为打印流
-			pw.write("用户名:admin;密码:123");
+			pw.write(content);
 			pw.flush();
 			socket.shutdownOutput();//关闭输出流
 			
