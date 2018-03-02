@@ -1,4 +1,4 @@
-package com.wsz.Socket.udp;
+package com.wsz.Socket.udp.common;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
